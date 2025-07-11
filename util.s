@@ -61,7 +61,7 @@ atoi:
         ; r8 -= '0'
         sub r8, '0' ; 0-9
 
-        ; rax = (rax*10) + r8
+; rax = (rax*10) + r8
         imul rax, 10
         add rax, r8
 
@@ -116,3 +116,49 @@ strncpy:
     strncpy_loop_after:
     mov rax, rsi
     ret
+
+
+; ===== actual utility functions =====
+log_info:
+    ;; rdi: const char* txt
+    push rbp
+    mov rbp, rsp
+
+    mov r9, rdi
+    call1 strlen, r9
+    mov r8, rax
+    syscall3 SYS_write, stderr, txt_log_info_header, txt_log_info_header_len
+    syscall3 SYS_write, stderr, r9, r8
+    
+    push 0xA ; pushes 8 bytes
+    syscall3 SYS_write, stderr, rsp, 1
+    add rsp, 8
+
+    mov rsp, rbp
+    pop rbp
+    ret
+
+log_error:
+    ;; rdi: const char* txt
+    push rbp
+    mov rbp, rsp
+
+    mov r9, rdi
+    call1 strlen, r9
+    mov r8, rax
+    syscall3 SYS_write, stderr, txt_log_error_header, txt_log_error_header_len
+    syscall3 SYS_write, stderr, r9, r8
+    
+    push 0xA ; pushes 8 bytes
+    syscall3 SYS_write, stderr, rsp, 1
+    add rsp, 8
+
+    mov rsp, rbp
+    pop rbp
+    ret
+
+section .data
+    txt_log_info_header db 0x1B, "[1minfo: ", 0x1B, "[0m"
+    txt_log_info_header_len equ $ - txt_log_info_header
+    txt_log_error_header db 0x1B, "[31;1merror: ", 0x1B, "[0m"
+    txt_log_error_header_len equ $ - txt_log_error_header

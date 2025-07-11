@@ -1,14 +1,11 @@
 # AsmMe
 
-A parody implementation of `DaringCuteSeal/AskMe` in x86_64 assembly (linked against libc)...that is not compliant.
+A parody implementation of `DaringCuteSeal/AskMe` in x86_64 assembly that is not compliant to the original.
 
-## Rules & guidelines
+## Rules
 
-since this program aims to be as minimal as possible, some libc functions will not be allowed.
+ 1. no linking against libc 
 
- * All `printf` and `scanf` variants,
- * `puts`,
-
-Things like memory allocation may be done with `malloc`, `calloc`, `realloc`, and `free`.
+## Style
 
 TODO: define style guidelines
