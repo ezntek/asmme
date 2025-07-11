@@ -97,7 +97,7 @@ main:
     mov rsi, O_RDONLY
     syscall3 SYS_open, path_buf, rsi, DEFAULT_OPENMODE
     cmp rax, -1
-    je main_open_file_fail
+    jle main_open_file_fail
     mov dword [path_fd], eax
 
     ; get the length
