@@ -107,8 +107,6 @@
 %define BUF_MAX 4096
 %define DEFAULT_OPENMODE 0o644
 
-
-
 %macro syscall1 2
     mov rax, %1
     mov rdi, %2
